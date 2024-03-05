@@ -1,0 +1,60 @@
+package com.example.challegestori
+
+import android.content.res.Resources
+import androidx.compose.runtime.Stable
+import androidx.navigation.NavHostController
+import com.example.challegestori.common.snackbar.SnackbarManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import androidx.compose.material.ScaffoldState
+import com.example.challegestori.common.snackbar.SnackbarMessage.Companion.toMessage
+import kotlinx.coroutines.flow.filterNotNull
+
+@Stable
+class ChallengeStoriState(
+    val scaffoldState: ScaffoldState,
+    val navController: NavHostController,
+    private val snackbarManager: SnackbarManager,
+    private val resources: Resources,
+    coroutineScope: CoroutineScope
+) {
+    init {
+        coroutineScope.launch {
+            snackbarManager.snackbarMessages.filterNotNull().collect { snackbarMessage ->
+                val text = snackbarMessage.toMessage(resources)
+                scaffoldState.snackbarHostState.showSnackbar(text)
+                snackbarManager.clearSnackbarState()
+            }
+        }
+    }
+
+    fun popUpArgument(data: String) {
+        navController.previousBackStackEntry
+            ?.savedStateHandle
+            ?.set("key", data)
+        navController.popBackStack()
+    }
+
+    fun popUp() {
+        navController.popBackStack()
+    }
+
+    fun navigate(route: String) {
+        navController.navigate(route) { launchSingleTop = true }
+    }
+
+    fun navigateAndPopUp(route: String, popUp: String) {
+        navController.navigate(route) {
+            launchSingleTop = true
+            popUpTo(popUp) { inclusive = true }
+        }
+    }
+
+    fun clearAndNavigate(route: String) {
+        navController.navigate(route) {
+            launchSingleTop = true
+            popUpTo(0) { inclusive = true }
+        }
+    }
+
+}

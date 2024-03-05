@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "773438617155",
+    "project_id": "challengestori",
+    "storage_bucket": "challengestori.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:773438617155:android:263db3347156b1d48846f6",
+        "android_client_info": {
+          "package_name": "com.example.challegestori"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFXKk2zWjzjtKv_OIbmkmj09jtrc8shR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
